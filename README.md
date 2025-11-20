@@ -16,10 +16,3 @@ Allows users to add, complete, and manage tasks with a sleek tile-based interfac
 
 ![Screenshot](screenshot.png)
 
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/<your-username>/flask-todo-app.git
-cd flask-todo-app
