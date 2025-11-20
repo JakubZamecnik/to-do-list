@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}To-Do-List{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">To-Do List</h1>
+
+<form method="POST" action="/">
+    <ul class="list-unstyled d-flex w-100">
+        <li style="width: 15%;">
+            <input type="text" name="title" class="form-control rounded-0" placeholder="Title">
+        </li>
+        <li class="flex-grow-1" style="width: 60%;">
+            <input type="text" name="description" class="form-control rounded-0" placeholder="Description">
+        </li>
+        <li style="width: 25%;">
+            <input type="date" name="due_date" class="form-control rounded-0" placeholder="Due date">
+        </li>
+    </ul>
+    <button class="btn btn-primary mt-2">Add task</button>
+</form>
+
+<div class="d-flex flex-wrap gap-3 mt-4">
+    {% for task in tasks %}
+    {% if not task.completed %}
+     <div class="border p-3 shadow-sm rounded
+                    {% if task.due_date < now %}
+                        bg-danger-subtle border-danger
+                    {% else %}
+                        bg-white
+                    {% endif %}"
+             style="width: 32%; min-height: 160px;">
+
+        <!-- Název -->
+        <h5>{{ task.title }}</h5>
+
+        <!-- Popis -->
+        <p class="text-muted mb-1">{{ task.description }}</p>
+
+        <!-- Datum -->
+        <small class="text-secondary">
+            Due: {{ task.due_date.strftime('%d.%m.%Y') }}
+        </small>
+
+        <!-- Checkbox -->
+        <form method="POST" action="/complete/{{ task.id }}">
+            <label class="mt-2">
+                <input type="checkbox"
+                       name="completed"
+                       onchange="this.form.submit()">
+                ✓ Completed
+            </label>
+        </form>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}
